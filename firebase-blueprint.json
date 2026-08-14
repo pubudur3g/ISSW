@@ -1,0 +1,264 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User account in the inventory system",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["ADMIN", "SUPERVISOR", "EMPLOYEE"] },
+        "pin": { "type": "string" },
+        "siteIds": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "role"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Inventory product item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "categoryId": { "type": "string" },
+        "brand": { "type": "string" },
+        "description": { "type": "string" },
+        "unit": { "type": "string" },
+        "packageSize": { "type": "string" },
+        "currentStock": { "type": "number" },
+        "minStock": { "type": "number" },
+        "targetStock": { "type": "number" },
+        "maxStock": { "type": "number" },
+        "supplierId": { "type": "string" },
+        "supplierProductCode": { "type": "string" },
+        "purchasePrice": { "type": "number" },
+        "storageLocation": { "type": "string" },
+        "qrCode": { "type": "string" },
+        "active": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "code", "name", "unit", "currentStock"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Stock transaction log",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["RECEIVE", "ISSUE", "ADJUSTMENT"] },
+        "productId": { "type": "string" },
+        "productName": { "type": "string" },
+        "quantity": { "type": "number" },
+        "unit": { "type": "string" },
+        "siteId": { "type": "string" },
+        "siteName": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "reason": { "type": "string" },
+        "notes": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "type", "productId", "quantity", "timestamp"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Product category",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "active": { "type": "boolean" }
+      },
+      "required": ["id", "name"]
+    },
+    "Supplier": {
+      "title": "Supplier",
+      "description": "Product supplier directory entry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "contactPerson": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "address": { "type": "string" },
+        "active": { "type": "boolean" }
+      },
+      "required": ["id", "name"]
+    },
+    "Site": {
+      "title": "Site",
+      "description": "Cleaning site location",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "address": { "type": "string" },
+        "contactPerson": { "type": "string" },
+        "phone": { "type": "string" },
+        "active": { "type": "boolean" }
+      },
+      "required": ["id", "name"]
+    },
+    "ReorderRequest": {
+      "title": "ReorderRequest",
+      "description": "Reorder request or purchase order",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "orderNumber": { "type": "string" },
+        "items": { "type": "array" },
+        "status": { "type": "string" },
+        "requestedBy": { "type": "string" },
+        "requestedByName": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "orderNumber", "status"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "System audit trail",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "action": { "type": "string" },
+        "objectType": { "type": "string" },
+        "objectId": { "type": "string" },
+        "objectName": { "type": "string" },
+        "previousValue": { "type": "string" },
+        "newValue": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "action", "timestamp"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "System alerts and notifications",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "type": { "type": "string" },
+        "productId": { "type": "string" },
+        "productName": { "type": "string" },
+        "message": { "type": "string" },
+        "read": { "type": "boolean" },
+        "severity": { "type": "string" }
+      },
+      "required": ["id", "date", "time", "type", "message"]
+    },
+    "ProductRequest": {
+      "title": "ProductRequest",
+      "description": "Unregistered product requests submitted by staff",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "productName": { "type": "string" },
+        "category": { "type": "string" },
+        "brand": { "type": "string" },
+        "suggestedSupplier": { "type": "string" },
+        "siteId": { "type": "string" },
+        "siteName": { "type": "string" },
+        "estimatedQuantity": { "type": "number" },
+        "unit": { "type": "string" },
+        "reason": { "type": "string" },
+        "urgency": { "type": "string" },
+        "requestedByUserId": { "type": "string" },
+        "requestedByUserName": { "type": "string" },
+        "requestedByUserRole": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "productName", "requestedByUserId", "status"]
+    },
+    "DeepCleaningTask": {
+      "title": "DeepCleaningTask",
+      "description": "Client requested deep cleaning, furniture removal and repeat tasks",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "taskCode": { "type": "string" },
+        "title": { "type": "string" },
+        "taskType": { "type": "string" },
+        "location": { "type": "string" },
+        "siteId": { "type": "string" },
+        "siteName": { "type": "string" },
+        "clientName": { "type": "string" },
+        "whenDate": { "type": "string" },
+        "startTime": { "type": "string" },
+        "deadlineDate": { "type": "string" },
+        "deadlineTime": { "type": "string" },
+        "repeatFrequency": { "type": "string" },
+        "description": { "type": "string" },
+        "assignedMembers": { "type": "array", "items": { "type": "string" } },
+        "priority": { "type": "string" },
+        "status": { "type": "string" },
+        "specialToolsEquipment": { "type": "array", "items": { "type": "string" } },
+        "createdByUserId": { "type": "string" },
+        "createdByUserName": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "completedAt": { "type": "string" },
+        "completedByUserId": { "type": "string" },
+        "completedByUserName": { "type": "string" },
+        "completionNotes": { "type": "string" }
+      },
+      "required": ["id", "title", "taskType", "location", "whenDate", "deadlineDate", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profiles collection"
+    },
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Inventory product items collection"
+    },
+    "/transactions/{transactionId}": {
+      "schema": { "$ref": "#/entities/Transaction" },
+      "description": "Stock transaction log collection"
+    },
+    "/categories/{categoryId}": {
+      "schema": { "$ref": "#/entities/Category" },
+      "description": "Product categories collection"
+    },
+    "/suppliers/{supplierId}": {
+      "schema": { "$ref": "#/entities/Supplier" },
+      "description": "Suppliers collection"
+    },
+    "/sites/{siteId}": {
+      "schema": { "$ref": "#/entities/Site" },
+      "description": "Cleaning sites collection"
+    },
+    "/reorderRequests/{requestId}": {
+      "schema": { "$ref": "#/entities/ReorderRequest" },
+      "description": "Reorder requests and POs collection"
+    },
+    "/auditLogs/{logId}": {
+      "schema": { "$ref": "#/entities/AuditLog" },
+      "description": "Audit log entries collection"
+    },
+    "/notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/Notification" },
+      "description": "System notifications collection"
+    },
+    "/productRequests/{requestId}": {
+      "schema": { "$ref": "#/entities/ProductRequest" },
+      "description": "Staff product requests collection"
+    },
+    "/deepCleaningTasks/{taskId}": {
+      "schema": { "$ref": "#/entities/DeepCleaningTask" },
+      "description": "Client requested deep cleaning and furniture moval tasks"
+    }
+  }
+}

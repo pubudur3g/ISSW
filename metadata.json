@@ -1,0 +1,6 @@
+{
+  "name": "ISS Deep Cleaning and Grocery Store",
+  "description": "Comprehensive stock management, QR code scanning, inventory tracking, reorder alerts, sites & employee usage reporting, and specialized Deep Cleaning & Furniture Movement operations for ISS Deep Cleaning and Grocery Store.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
